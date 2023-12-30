@@ -1,9 +1,8 @@
-FROM ubuntu:latest
-RUN apt-get update && apt-get install npm nodejs
-WORKDIR /app
-COPY . /app
-COPY package.json /app
+FROM node:latest
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY package.json /usr/src/app
 RUN npm install
-COPY. /app
+COPY . /usr/src/app
 EXPOSE 3003
 CMD ["node", "server.js"]

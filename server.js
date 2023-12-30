@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const path = require("path");
 
 /* ===============>
      -- Environment Configuration --
@@ -29,6 +30,11 @@ app.use(cookieParser());
      -- Routing --
  <=============== */
 
+app.get('/', (req, res) => {
+    res.json({status: 'ONLINE'});
+})
+
+app.use('/user',  require('./routes/users'));
 
 
 const PORT = process.env.PORT || 3000;
