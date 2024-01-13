@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  app:
+    depends_on:
+      - mysqldb
+    build: .
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - "3006:3006"
+    stdin_open: true
+    tty: true
+
+  mysqldb:
+    image: mysql:5.7
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$DB_PASSWORD
+      - MYSQL_DATABASE=$DB_NAME
+    ports:
+      - "3000:3000"
+    volumes:
+      - db:/var/lib/mysql
+
+
+volumes:
+  db:

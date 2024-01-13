@@ -1,8 +1,9 @@
 FROM node:latest
-RUN mkdir -p /usr/src/app
+ARG DOCKER
+RUN apt-get update && apt-get upgrade -y
 WORKDIR /usr/src/app
 COPY package.json /usr/src/app
 RUN npm install
 COPY . /usr/src/app
 EXPOSE 3003
-CMD ["node", "server.js"]
+CMD npm start
