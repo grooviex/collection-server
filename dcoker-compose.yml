@@ -6,7 +6,7 @@ services:
       - mysqldb
     build: .
     restart: unless-stopped
-    env_file: ./.env
+    env_file: .env
     ports:
       - "3006:3006"
     stdin_open: true
@@ -15,7 +15,7 @@ services:
   mysqldb:
     image: mysql:5.7
     restart: unless-stopped
-    env_file: ./.env
+    env_file: .env
     environment:
       - MYSQL_ROOT_PASSWORD=$DB_PASSWORD
       - MYSQL_DATABASE=$DB_NAME
