@@ -8,7 +8,7 @@ services:
     restart: unless-stopped
     env_file: .env
     ports:
-      - "3006:3006"
+      - "3000:3000"
     stdin_open: true
     tty: true
 
@@ -20,7 +20,7 @@ services:
       - MYSQL_ROOT_PASSWORD=$DB_PASSWORD
       - MYSQL_DATABASE=$DB_NAME
     ports:
-      - "3000:3000"
+      - "3006:3006"
     volumes:
       - db:/var/lib/mysql
 
