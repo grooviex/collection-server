@@ -1,19 +1,27 @@
 const express = require('express');
 const bodyParser = require("body-parser");
+const mysql = require('mysql');
 const cookieParser = require("cookie-parser");
 const path = require("path");
-
 
 /* ===============>
      -- Environment Configuration --
  <=============== */
+
+/* --- .env --- */
 if (!process.env.DOCKER) {
-    /* TODO: DOCKER IS RUNNING WTF??? */
-    console.log(process.env.DOCKER);
     const dotenv = require("dotenv");
-    dotenv.config({path: '.env'});
+    dotenv.config({path: '../.env'});
 }
-console.log('after check');
+
+/* --- MySQL Database connection --- */
+const database = mysql.createConnection({
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
+});
+
+console.log(database);
 
 /* ===============>
      --  Express Configuration --
@@ -28,17 +36,16 @@ app.use(cookieParser());
 app.set('view engine', 'pug');
 app.set("views", path.join(__dirname, "frontend", "views"));
 
-
-/*
-
 /* ===============>
      -- Routing --
  <=============== */
 
+/* --- Frontend GET request --- */
 app.get('/', (req, res) => {
     res.render('index');
 })
 
+/* --- Backend Routing --- */
 app.use('/user',  require('./backend/routes/users'));
 
 
