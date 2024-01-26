@@ -1,27 +1,32 @@
 const express = require('express');
 const bodyParser = require("body-parser");
-const mysql = require('mysql');
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const mysql = require('mysql2');
 
 /* ===============>
      -- Environment Configuration --
  <=============== */
 
-/* --- .env --- */
 if (!process.env.DOCKER) {
+    /* Configuration for local Machine */
     const dotenv = require("dotenv");
     dotenv.config({path: '../.env'});
 }
 
 /* --- MySQL Database connection --- */
 const database = mysql.createConnection({
+    database: process.env.DB_NAME,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
 });
 
-console.log(database);
+database.connect((error) => {
+    if (error) console.error({status: 'ERROR', message: error});
+    else console.log({status: "INFO", message: "Connection to MySQL server successfully established"});
+});
 
 /* ===============>
      --  Express Configuration --
@@ -35,6 +40,7 @@ app.use(cookieParser());
 /* --- Frontend Configuration --- */
 app.set('view engine', 'pug');
 app.set("views", path.join(__dirname, "frontend", "views"));
+
 
 /* ===============>
      -- Routing --

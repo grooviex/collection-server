@@ -1,9 +1,21 @@
 version: '3.8'
 
 services:
+  mysql:
+    image: mysql:8
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$DB_PASSWORD
+      - MYSQL_DATABASE=$DB_NAME
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql:/var/lib/mysql
+
   app:
     depends_on:
-      - mysqldb
+      - mysql
     build: .
     restart: unless-stopped
     env_file: .env
@@ -12,18 +24,5 @@ services:
     stdin_open: true
     tty: true
 
-  mysqldb:
-    image: mysql:5.7
-    restart: unless-stopped
-    env_file: .env
-    environment:
-      - MYSQL_ROOT_PASSWORD=$DB_PASSWORD
-      - MYSQL_DATABASE=$DB_NAME
-    ports:
-      - "3006:3006"
-    volumes:
-      - db:/var/lib/mysql
-
-
 volumes:
-  db:
+  mysql:
