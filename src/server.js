@@ -2,7 +2,9 @@ const express = require('express');
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const path = require("path");
-const mysql = require('mysql2');
+const { Sequelize } = require('sequelize');
+
+const { port } = require('./config');
 
 /* ===============>
      -- Environment Configuration --
@@ -15,17 +17,19 @@ if (!process.env.DOCKER) {
 }
 
 /* --- MySQL Database connection --- */
-const database = mysql.createConnection({
+const sequelize = new Sequelize({
     database: process.env.DB_NAME,
-    user: process.env.DB_USER,
+    username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
+    dialect: "mysql",
 });
 
-database.connect((error) => {
-    if (error) console.error({status: 'ERROR', message: error});
-    else console.log({status: "INFO", message: "Connection to MySQL server successfully established"});
+sequelize.authenticate().then(() => {
+    console.info("Connection to MySQL successfully established");
+}).catch((err) => {
+    console.error('Connection to MySQL failed: \n' + err)
 });
 
 /* ===============>
@@ -52,8 +56,9 @@ app.get('/', (req, res) => {
 })
 
 /* --- Backend Routing --- */
-app.use('/user',  require('./backend/routes/users'));
+app.use('/users',  require('./backend/routes/users/routes'));
+app.use('/auth',  require('./backend/routes/authorization/routes'));
 
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => { console.log(`Server is running on port ${PORT}`); });
+const PORT = port || 3000;
+app.listen(PORT, () => { console.info(`Server is running on port ${PORT}`)});
