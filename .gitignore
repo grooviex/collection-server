@@ -131,3 +131,4 @@ dist
 
 # Jetbrains IDE
 .idea/
+*.html
