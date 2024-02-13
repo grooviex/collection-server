@@ -1,8 +1,8 @@
-const UserModel = require("./../../../common/modules/user.model");
+const UserModel = require("../../../../common/models/users.model");
 
 module.exports = {
     getAllUsers: (req, res) => {
-        UserModel.findAllUsers({})
+        UserModel.findAllUsers()
             .then((users) => {
                 return res.status(200).json({
                     status: true,

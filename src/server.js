@@ -4,7 +4,7 @@ const cookieParser = require("cookie-parser");
 const path = require("path");
 const { Sequelize } = require('sequelize');
 
-const { port } = require('./config');
+const { port, roles} = require('./config');
 
 /* ===============>
      -- Environment Configuration --
@@ -26,7 +26,11 @@ const sequelize = new Sequelize({
     dialect: "mysql",
 });
 
-sequelize.authenticate().then(() => {
+/* Initialising the Model on sequelize */
+const userModel = require("./common/models/users.model");
+userModel.init(sequelize);
+
+sequelize.sync().then(() => {
     console.info("Connection to MySQL successfully established");
 }).catch((err) => {
     console.error('Connection to MySQL failed: \n' + err)
@@ -51,7 +55,7 @@ app.set("views", path.join(__dirname, "frontend", "views"));
  <=============== */
 
 /* --- Frontend GET request --- */
-app.get('/', (req, res) => {
+app.get('/dashboard', (req, res) => {
     res.render('index');
 })
 

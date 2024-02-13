@@ -1,5 +1,4 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 
 const userController = require("./controllers/userController");
 
@@ -7,7 +6,7 @@ const userController = require("./controllers/userController");
  * GET: Users Profile
  * Restricted to the user themselves
  */
-router.post('/', (req, res) => {
+router.get('/', (req, res) => {
 
 })
 
@@ -15,14 +14,14 @@ router.post('/', (req, res) => {
  * PATCH: Update a Users Profile
  * Restricted to User ++ Admins
  */
-router.patch('/:userId', (req, res) => {
+router.post('/:userId', (req, res) => {
 
 })
 
 /**
  * GET: Get all users
  */
-router.get('/all', userController.getAllUsers)
+router.get('/listAll', userController.getAllUsers)
 
 /**
  * PATCH: Update a user's role

@@ -1,7 +1,7 @@
 const { DataTypes} = require("sequelize");
-const {roles} = require("../../../config");
+const {roles} = require("../../config");
 
-const UserModel = {
+const UsersModel = {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -14,6 +14,7 @@ const UserModel = {
     },
     email: {
         type: DataTypes.STRING,
+        unique: true,
         allowNull: false,
     },
     password: {
@@ -29,13 +30,14 @@ const UserModel = {
 
 module.exports = {
     init: (sequelize) => {
-        this.model = sequelize.define('user', UserModel);
+        this.model = sequelize.define('users', UsersModel);
     },
+
     createUser: (user) => {
         return this.model.create(user);
     },
+
     findAllUsers: (query) => {
-        /* TODO: Find all is not a function, fix Model */
         return this.model.findAll({
             where: query
         });
