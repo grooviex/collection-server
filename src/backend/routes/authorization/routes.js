@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
+const authController = require("./controllers/authorizationController");
+
 /**
  * POST: Register a new user
  */
-router.post('/signup', (req,res) => {
-
-});
+router.post('/signup', authController.register)
 
 /**
  * POST: Logging in

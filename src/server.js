@@ -27,7 +27,7 @@ const sequelize = new Sequelize({
 });
 
 /* Initialising the Model on sequelize */
-const userModel = require("./common/models/users.model");
+const userModel = require("./backend/common/models/users.model");
 userModel.init(sequelize);
 
 sequelize.sync().then(() => {
@@ -59,9 +59,10 @@ app.get('/dashboard', (req, res) => {
     res.render('index');
 })
 
-/* --- Backend Routing --- */
-app.use('/users',  require('./backend/routes/users/routes'));
-app.use('/auth',  require('./backend/routes/authorization/routes'));
+/* --- API Routing --- */
+app.use('/api/users',  require('./backend/routes/users/routes'));
+app.use('/api/auth',  require('./backend/routes/authorization/routes'));
+
 
 
 const PORT = port || 3000;

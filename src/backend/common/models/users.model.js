@@ -1,5 +1,5 @@
 const { DataTypes} = require("sequelize");
-const {roles} = require("../../config");
+const {roles} = require("../../../config");
 
 const UsersModel = {
     id: {
@@ -42,4 +42,8 @@ module.exports = {
             where: query
         });
     },
+
+    findUser: () => {
+
+    }
 }
