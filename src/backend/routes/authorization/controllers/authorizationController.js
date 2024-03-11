@@ -1,8 +1,6 @@
 const UserModel = require("./../../../common/models/users.model");
 
 const bcrypt = require('bcryptjs');
-
-/* TODO: Look into JWT, how does the token go into the header? */
 const jwt = require('jsonwebtoken');
 
 const { roles, jwtSecret, jwtExpirationsInSeconds} = require("../../../../config");
@@ -53,9 +51,45 @@ module.exports = {
         });
 
     },
-    login: async (req, res) => {
-        const payload = req.body;
+    login: (req, res) => {
+        const { username, password } = req.body;
 
-        res.status('');
+        /* check if user exists */
+        UserModel.findUser({ username }).then((user) => {
+            if (!user) {
+                return res.status(400).json({
+                    status: false,
+                    error: {
+                        message: `Could not find any user with username: \`${username}\`.`,
+                    },
+                });
+            }
+
+            bcrypt.compare(password, user.password, (err, responded) => {
+                if (responded) {
+                    const accessToken = generateAccessToken(user.username, user.id);
+                    return res.status(200).json({
+                        status: true,
+                        data: {
+                            user: user.toJSON(),
+                            token: accessToken,
+                        },
+                    });
+                } else {
+                    return res.status(400).json({
+                        status: false,
+                        error: {
+                            message: `Provided username and password did not match.`,
+                            error: err,
+                        },
+                    });
+                }
+            })
+        }).catch((err) => {
+            return res.status(500).json({
+                status: false,
+                error: err,
+            });
+        });
     }
 }

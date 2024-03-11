@@ -1,29 +1,32 @@
 const express = require('express');
 const router = express.Router();
-
-
 const {request, response} = require("express");
-
-/* Middleware Imports */
-const IsAuthenticatedMiddleware = require("../../common/middlewares/IsAuthenticatedMiddleware");
 
 /* Controller Imports */
 const authorizationController = require("./controllers/authorizationController");
 
-// noinspection JSCheckFunctionSignatures
+/* Middleware Imports */
+const SchemaValidationMiddleware = require("../../common/middlewares/SchemaValidationMiddleware");
+
+/* JSON schemas for Validation */
+const {register, login} = require("./schemas/authorizationPayload");
+
 /**
  * POST: Register a new user
  */
 router.post(
     "/signup",
+    [SchemaValidationMiddleware.verify(register)],
     authorizationController.register
 );
 
 /**
  * POST: Logging in
  */
-router.post('/login', (req, res) => {
-
-});
+router.post(
+    '/login',
+    [SchemaValidationMiddleware.verify(login)],
+    authorizationController.login
+);
 
 module.exports = router;

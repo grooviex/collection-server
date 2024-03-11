@@ -61,6 +61,8 @@ app.get('/dashboard', (req, res) => {
 
 /* --- API Routing --- */
 app.use('/api/users',  require('./backend/routes/users/routes'));
+
+/* TODO: Look into JWT, how does the token go into the header? */
 app.use('/api/auth',  require('./backend/routes/authorization/routes'));
 
 
