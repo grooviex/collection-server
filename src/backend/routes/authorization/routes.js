@@ -29,4 +29,9 @@ router.post(
     authorizationController.login
 );
 
+router.post(
+    '/logout'
+
+)
+
 module.exports = router;

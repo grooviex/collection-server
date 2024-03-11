@@ -108,5 +108,18 @@ module.exports = {
                 error: err,
             });
         });
+    },
+
+    logout: (req, res) => {
+        /* TODO: implement Logout
+                 not needed yet, only logout method: delete your cookies ( not my cookies D: )
+         */
+
+        res.status(500).json({
+            status: false,
+            error: {
+                message: 'There is (yet) no logout method, please delete your cookies instead ( not the cookies D: )'
+            }
+        })
     }
 }
