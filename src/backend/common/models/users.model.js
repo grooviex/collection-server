@@ -30,7 +30,7 @@ const UsersModel = {
 
 module.exports = {
     init: (sequelize) => {
-        this.model = sequelize.define('users', UsersModel);
+        return this.model = sequelize.define('users', UsersModel);
     },
 
     createUser: (user) => {
@@ -43,7 +43,9 @@ module.exports = {
         });
     },
 
-    findUser: () => {
-
+    findUser: (query) => {
+        return this.model.findOne({
+            where: query,
+        });
     }
 }

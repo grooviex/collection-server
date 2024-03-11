@@ -1,7 +1,9 @@
-const UserModel = require("../../../common/models/users.model");
+const UserModel = require("/../models/users.model");
+const jwt = require("jsonwebtoken");
+const { jwtSecret } = require("../../../config");
 
 module.exports = {
-    check: (req, res) => {
+    check: (req, res, next) => {
         const authHeader = req.headers['authorization'];
 
         if (!authHeader) {
@@ -12,5 +14,36 @@ module.exports = {
                 }
             });
         }
+
+        if (!authHeader.startsWith('Bearer')) {
+            return res.status(401).json({
+                status: false,
+                error: {
+                    message: 'Invalid auth mechanism.'
+                }
+            });
+        }
+
+        const token = authHeader.split(' ')[1];
+        if (!token) {
+            return res.status(401).json({
+                status: false,
+                error: {
+                    message: 'Bearer token missing in the authorization headers.'
+                }
+            })
+        }
+
+        jwt.verify(token, jwtSecret, (err, user) => {
+            if (err) {
+                return res.status(403).json({
+                    status: false,
+                    error: 'Invalid access token provided, please login again.'
+                });
+            }
+
+            req.user = user;
+            next();
+        });
     }
 }
