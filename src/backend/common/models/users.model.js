@@ -1,5 +1,5 @@
 const { DataTypes} = require("sequelize");
-const {roles} = require("../../config");
+const {roles} = require("../../../config");
 
 const UsersModel = {
     id: {
@@ -30,7 +30,7 @@ const UsersModel = {
 
 module.exports = {
     init: (sequelize) => {
-        this.model = sequelize.define('users', UsersModel);
+        return this.model = sequelize.define('users', UsersModel);
     },
 
     createUser: (user) => {
@@ -42,4 +42,10 @@ module.exports = {
             where: query
         });
     },
+
+    findUser: (query) => {
+        return this.model.findOne({
+            where: query,
+        });
+    }
 }
