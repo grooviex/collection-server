@@ -33,7 +33,10 @@ module.exports = {
                     email: payload.email
                 })
             ).then((user) => {
-                const accessToken = generateAccessToken(payload.username, user.id);
+                const accessToken = jwt.sign({ userId: user.id, username: user.username}, jwtSecret,
+                    {
+                        expiresIn: jwtExpirationsInSeconds,
+                    });
 
                 return res.status(200).json({
                     status: true,
@@ -67,7 +70,21 @@ module.exports = {
 
             bcrypt.compare(password, user.password, (err, responded) => {
                 if (responded) {
-                    const accessToken = generateAccessToken(user.username, user.id);
+                    const accessToken = jwt.sign({ userId: user.id, username: user.username}, jwtSecret,
+                        {
+                            expiresIn: jwtExpirationsInSeconds,
+                        });
+
+                    if (!res.cookies) res.cookies = [];
+                    if (res.cookies['tokenKey']) {
+                        return res.status(400).json({
+                            status: false,
+                            error: {
+                                message: 'You are already signed in. You need to log out first!'
+                            }
+                        });
+                    }
+
                     return res.status(200).json({
                         status: true,
                         data: {
