@@ -7,7 +7,9 @@ ENV DOCKER true
 ENV NODE_ENV production
 
 # INSTALL PROJECT
+
 WORKDIR /usr/src/app
+COPY collection/* /usr/src/app/collection/
 COPY package.json entrypoint.sh /usr/src/app/
 RUN npm install
 
