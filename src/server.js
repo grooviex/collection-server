@@ -81,6 +81,8 @@ app.get('/dashboard', (req, res) => {
     res.render('index');
 })
 
+app.use('/', require('./frontend/views/homepage/routes'))
+
 /* --- API Routing --- */
 const collectionRoute = require('./backend/routes/collection/routes');
 
