@@ -1,6 +1,4 @@
 const musicMetadata = require('music-metadata');
-const sequelize = require("sequelize");
-const { Op } = require('@sequelize/core');
 const fs = require('fs');
 
 /* -- Models -- */
@@ -205,48 +203,78 @@ module.exports = {
 
     /**
      * one-way-sync: Searches for files in this folder, then syncs them
+     *
+     * sync-type:
+     * - default sync:
+     *      - deletes all database entries that do not have a local file
+     *      - Adds database entries for every local file that has not a database entry
+     * - delete sync:
+     *      - deletes all database entries that do not have a local file
+     *      - deletes all local files that do not have a database entry
+     * - soft sync:
+     *      - Adds database entries for every local file that has not a database entry
+     *      - doesn't delete anything
      */
     sync: async (req, res) => {
     try {
-        let re = /(?:\.([^.]+))?$/; // regex for getting a file extension
-        const allowedFileTypes = ['wav', 'mp3', 'flac', 'mpeg'];
+        let syncType = req.body.type;
+        let songs = await songModel.listAllSongs({include: [artistModel.getModel(), genreModel.getModel()]}).then(async (query) => { return query; });
 
         let files = fs.readdirSync('/usr/src/app/collection');
 
+        const allowedFileTypes = ['wav', 'mp3', 'flac', 'mpeg'];
+        let reFileExtension = /(?:\.([^.]+))?$/; // regex for getting a file extension
+        let reFileName = /(.*)\.[^.]+$/; // regex for getting a file extension
 
-        let fileArray = [];
-        if(files) {
-            for (const file of files) {
-                if(allowedFileTypes.includes(re.exec(file)[1])) {
-                    try {
-                        const result = await createEntriesByMetadata('/usr/src/app/collection/' + file);
-                        if (result.status) fileArray.push(result.result.song);
-                    } catch (e) {
-                        res.status(500).json({
-                            status: false,
-                            error: {
-                                message: e.message
+        let addedEntries = [];
+        let removedEntries = [];
+        for (const file of files) {
+            let fileLocation = '/usr/src/app/collection/' + file;
+
+            if (allowedFileTypes.includes(reFileExtension.exec(file)[1])) {
+                try {
+                    console.log(syncType)
+                    if (syncType !== 'delete') {
+                        const databaseResult = await createEntriesByMetadata(fileLocation);
+                        if (databaseResult.status) addedEntries.push(databaseResult.result.song);
+                    } else {
+                        await songModel.findSong({where: {localLocation: fileLocation}}).then(async (query) => {
+                            if (!query) {
+                                await fs.unlink(fileLocation, () => {
+                                    console.log(`Removed file: \`${reFileName.exec(file)[1]}\`, locally`)
+                                    removedEntries.push({title: file});
+                                });
                             }
-                        })
+                        });
                     }
 
+                } catch (e) {
+                    return res.status(500).json({
+                        status: false,
+                        error: {
+                            message: e.message
+                        }
+                    });
                 }
             }
-        } else {
-            return res.status(500).json({
-                status: false,
-                error: {
-                    message: 'No new songs in the collection folder'
-                }
-            })
         }
 
-        if (fileArray) return res.status(200).json({
+        for (let song of songs) {
+            if (syncType !== 'soft') {
+                if (!fs.existsSync(song['localLocation'])) {
+                    removedEntries.push(await songModel.findSong({where: {id: song['id']}}));
+                    await songModel.destroySong({where: {id: song['id']}});
+                }
+            }
+        }
+
+        await res.status(200).json({
             status: true,
             result: {
-                songs: fileArray
+                addedEntries: addedEntries,
+                removedEntries: removedEntries,
             }
-        })
+        });
 
     } catch (e) {
         return res.status(500).json({
