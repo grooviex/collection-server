@@ -77,6 +77,8 @@ app.set("views", path.join(__dirname, "frontend", "views"));
  <=============== */
 
 /* --- Frontend GET request --- */
+app.use(express.static(__dirname + '/frontend/public'));
+
 app.get('/dashboard', (req, res) => {
     res.render('index');
 })
