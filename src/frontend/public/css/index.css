@@ -1,3 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    position: relative;
+}
+
 body {
+    margin: 1.4%;
     background-color: #262626;
+
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }

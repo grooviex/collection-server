@@ -1,17 +1,67 @@
-.homepage {
-
-}
-
 .box {
+    display: flex;
+
     background-color: rgba(0, 0, 0, 0.5);
-    height: 94%;
-    margin-top: 0.5%;
-    margin-left: 172px;
+    height: 100%;
     border-radius: 10px;
     color: white;
     text-align: center;
 
-    h1 {
-        margin-top: 0;
+    /* The sidebar menu */
+    .sidebar {
+        display: flex;
+        flex-direction: column;
+
+        border-radius: 10px 0 10px 0;
+        background-color: rgba(0, 0, 0, 0.5);
+
+        width: 8%;
+        padding-top: 10px;
+        height: 100%;
+
+        .sidebar-entry {
+            padding: 6px 0 6px 0;
+            text-decoration: none;
+            font-size: 25px;
+            color: white;
+            display: block;
+
+            &:hover {
+                color: gray;
+            }
+
+            &#login {
+                margin-top: auto;
+                margin-bottom: 15px;
+            }
+
+            &.active {
+            }
+        }
     }
+
+    .box-item {
+        flex: 1 0 auto;
+
+        /* Header Box */
+        .box-header {
+            border-bottom: 1px solid gray;
+            padding-bottom: 8px;
+
+            .header-title {
+                text-align: left;
+                padding: 12px 0 12px 20px;
+
+                h1 {
+                    font-size: 20px;
+                }
+
+            }
+        }
+
+        .box-content {
+            padding-top: 20px;
+        }
+    }
+
 }
