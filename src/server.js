@@ -8,8 +8,6 @@ const { Sequelize } = require('sequelize');
 const path = require("path");
 const { port, roles} = require('./config');
 
-const cors = require('cors');
-
 /* ===============>
      -- Environment Configuration --
  <=============== */
@@ -70,11 +68,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 /* --- Frontend Configuration --- */
-app.use(cors());
-
-app.get('/', (req, res) => {
-    res.send('Hello from our server!')
-})
+app.set('view engine', 'pug');
+app.set("views", path.join(__dirname, "frontend", "views"));
 
 
 /* ===============>
@@ -82,6 +77,13 @@ app.get('/', (req, res) => {
  <=============== */
 
 /* --- Frontend GET request --- */
+app.use(express.static(__dirname + '/frontend/public'));
+
+app.get('/dashboard', (req, res) => {
+    res.render('index');
+})
+
+app.use('/', require('./frontend/views/homepage/routes'))
 
 /* --- API Routing --- */
 const collectionRoute = require('./backend/routes/collection/routes');
