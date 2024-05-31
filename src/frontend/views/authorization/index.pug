@@ -4,11 +4,23 @@ html
         link(rel='stylesheet' href='/css/collection/index.css')
     body
         div.box
-            include ../includes/sidebar
 
             div.box-item
                 div.box-header
                     div.header-title
-                        h1 Auth!
+                        h1 Login or register!
                 div.box-content
-                    h1 ADD CONTENT HERE :3
+                    div.login-box
+                        h1 Login Required!
+                        form.login-form(action='/api/auth/signup' method='post')
+                            h4 Einloggen mit Email und Passwort!
+                            div.login-email
+                                label.form-label(for='loginMail') Ihre E-Mail-Adresse
+                                input#loginMail.form-control(type='email' placeholder='E-Mail-Adresse eingeben ...' name='username' required='required')
+                            div.login-password
+                                label.form-label(for='loginPassword') Ihr Passwort
+                                input#loginPassword.form-control(type='password' placeholder='Passwort eingeben ...' name='password' required='required')
+                            div.login-submit
+                                button(type='submit') Anmelden
+
+
