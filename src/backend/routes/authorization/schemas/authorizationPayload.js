@@ -15,6 +15,7 @@ module.exports = {
             'password'
         ]
     },
+
     register: {
         type: 'object',
         properties: {

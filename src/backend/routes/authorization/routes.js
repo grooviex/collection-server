@@ -16,7 +16,10 @@ const {register, login} = require("./schemas/authorizationPayload");
  */
 router.post(
     "/signup",
-    [SchemaValidationMiddleware.verify(register)],
+    [
+        SchemaValidationMiddleware.verify(register),
+        IsAuthenticatedMiddleware.check
+    ],
     authorizationController.register
 );
 
@@ -31,7 +34,6 @@ router.post(
 
 router.post(
     '/logout',
-    [IsAuthenticatedMiddleware.check],
     authorizationController.logout
 )
 

@@ -6,7 +6,12 @@ const router = require('express').Router();
  * Restricted to the user themselves
  */
 router.get('/', (req, res) => {
-    res.render('homepage/index');
+    if (req.session.logged_in) {
+        res.render('homepage/index');
+    } else {
+        res.render('authorization/index')
+    }
+
 })
 
 router.get('/collection', (req, res) => {

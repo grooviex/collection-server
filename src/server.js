@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session');
 
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
@@ -62,6 +63,15 @@ sequelize.sync().then(() => {
      --  Express Configuration --
  <=============== */
 const app = express();
+
+/* === Sessions === */
+
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 1.21e+9 }
+}))
 
 /* --- Backend Configuration --- */
 app.use(bodyParser.urlencoded({ extended: true }));
