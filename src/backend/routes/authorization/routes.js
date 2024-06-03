@@ -5,8 +5,8 @@ const {request, response} = require("express");
 const authorizationController = require("./controllers/authorizationController");
 
 /* Middleware Imports */
-const SchemaValidationMiddleware = require("../../common/middlewares/SchemaValidationMiddleware");
-const IsAuthenticatedMiddleware = require("../../common/middlewares/IsAuthenticatedMiddleware");
+const SchemaValidationMiddleware = require("../../../common/middlewares/SchemaValidationMiddleware");
+const IsAuthenticatedMiddleware = require("../../../common/middlewares/IsAuthenticatedMiddleware");
 
 /* JSON schemas for Validation */
 const {register, login} = require("./schemas/authorizationPayload");

@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 
-const songs = require("./../songs.model");
-const genres = require("./../genres.model");
+const songs = require("../songs.model");
+const genres = require("../genres.model");
 
 const SongsGenresModel = {
     songId: {

@@ -12,11 +12,11 @@ html
                 div.box-content
                     div.login-box
                         h1 Login Required!
-                        form.login-form(action='/api/auth/signup' method='post')
+                        form.login-form(action='/api/auth/login' method='post')
                             h4 Einloggen mit Email und Passwort!
                             div.login-email
                                 label.form-label(for='loginMail') Ihre E-Mail-Adresse
-                                input#loginMail.form-control(type='email' placeholder='E-Mail-Adresse eingeben ...' name='username' required='required')
+                                input#loginMail.form-control(type='email' placeholder='E-Mail-Adresse eingeben ...' name='email' required='required')
                             div.login-password
                                 label.form-label(for='loginPassword') Ihr Passwort
                                 input#loginPassword.form-control(type='password' placeholder='Passwort eingeben ...' name='password' required='required')

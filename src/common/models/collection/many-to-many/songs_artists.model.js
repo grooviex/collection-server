@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 
-const songs = require("./../songs.model");
-const artists = require("./../artists.model");
+const songs = require("../songs.model");
+const artists = require("../artists.model");
 
 const SongsArtistsModel = {
     songId: {

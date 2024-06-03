@@ -32,18 +32,18 @@ const sequelize = new Sequelize({
 /* Initialising the Model on sequelize */
 
 /* User Model */
-const userModel = require("./backend/common/models/users.model").init(sequelize);
+const userModel = require("./common/models/users.model").init(sequelize);
 
 /* Collection Models */
-const albumsModel = require("./backend/common/models/collection/albums.model").init(sequelize);
-const artistModel = require("./backend/common/models/collection/artists.model").init(sequelize);
-const songsModel = require("./backend/common/models/collection/songs.model").init(sequelize);
-const genresModel = require("./backend/common/models/collection/genres.model").init(sequelize);
+const albumsModel = require("./common/models/collection/albums.model").init(sequelize);
+const artistModel = require("./common/models/collection/artists.model").init(sequelize);
+const songsModel = require("./common/models/collection/songs.model").init(sequelize);
+const genresModel = require("./common/models/collection/genres.model").init(sequelize);
 
 
 /* Model Many-To-Many */
-const songsArtistsModel = require("./backend/common/models/collection/many-to-many/songs_artists.model").init(sequelize);
-const songsGenresModel = require("./backend/common/models/collection/many-to-many/songs_genres.model").init(sequelize);
+const songsArtistsModel = require("./common/models/collection/many-to-many/songs_artists.model").init(sequelize);
+const songsGenresModel = require("./common/models/collection/many-to-many/songs_genres.model").init(sequelize);
 
 artistModel.belongsToMany(songsModel, {through: songsArtistsModel})
 songsModel.belongsToMany(artistModel, {through: songsArtistsModel})

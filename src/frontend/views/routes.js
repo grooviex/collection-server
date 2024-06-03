@@ -1,29 +1,45 @@
 const path = require("path");
 const router = require('express').Router();
 
+const IsAuthenticatedMiddleware = require("../../common/middlewares/IsAuthenticatedMiddleware");
+
 /**
  * GET: Users Profile
  * Restricted to the user themselves
  */
-router.get('/', (req, res) => {
-    if (req.session.logged_in) {
-        res.render('homepage/index');
-    } else {
-        res.render('authorization/index')
-    }
+router.get('/',
+    [
+    IsAuthenticatedMiddleware.LoggedInFrontend
+    ],
+    (req, res) => { res.render('homepage/index'); });
 
-})
+router.get('/collection',     [
+        IsAuthenticatedMiddleware.LoggedInFrontend
+    ],
+    async (req, res) => {
 
-router.get('/collection', (req, res) => {
-    res.render('collection/index');
-})
+        const songs = await fetch('http://localhost:3000/api/collection/listSongs', {
+            method: 'GET',
+            params: {res, req}
+        });
 
-router.get('/users', (req, res) => {
-    res.render('users/index');
-})
+        /*  TODO: for loop, make table. Be happy :3 */
 
-router.get('/auth', (req, res) => {
-    res.render('authorization/index');
-})
+        let listOfSongs = await songs.json();
+        res.render('collection/index', {
+            songs: JSON.stringify(listOfSongs.response.message)
+        });
+
+    });
+
+router.get('/users', [
+        IsAuthenticatedMiddleware.LoggedInFrontend
+    ],
+    (req, res) => { res.render('users/index'); });
+
+router.get('/logout', [
+        IsAuthenticatedMiddleware.LoggedInFrontend
+    ],
+    (req, res) => {  });
 
 module.exports = router;

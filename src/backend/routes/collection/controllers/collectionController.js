@@ -2,14 +2,14 @@ const musicMetadata = require('music-metadata');
 const fs = require('fs');
 
 /* -- Models -- */
-const songModel = require("../../../common/models/collection/songs.model");
-const albumModel = require("../../../common/models/collection/albums.model");
-const artistModel = require("../../../common/models/collection/artists.model");
-const genreModel = require("../../../common/models/collection/genres.model");
+const songModel = require("../../../../common/models/collection/songs.model");
+const albumModel = require("../../../../common/models/collection/albums.model");
+const artistModel = require("../../../../common/models/collection/artists.model");
+const genreModel = require("../../../../common/models/collection/genres.model");
 
 /* --- Relation Models --- */
-const songsArtistsModel = require("../../../common/models/collection/many-to-many/songs_artists.model")
-const songsGenresModel = require("../../../common/models/collection/many-to-many/songs_genres.model")
+const songsArtistsModel = require("../../../../common/models/collection/many-to-many/songs_artists.model")
+const songsGenresModel = require("../../../../common/models/collection/many-to-many/songs_genres.model")
 
 async function createEntriesByMetadata(fileLocation) {
     const metadata = await musicMetadata.parseFile(fileLocation);
@@ -103,17 +103,18 @@ async function createEntriesByMetadata(fileLocation) {
 
 module.exports = {
     listSongs: async (req, res) => {
+        if (!req.body.limit) req.body.limit = 20;
         try {
             res.status(200).json({
                 status: true,
-                error: {
+                response: {
                     message: await songModel.listAllSongs({limit: parseInt(req.body.limit)})
                 }
             });
         } catch (error) {
             res.status(500).json({
                 status: false,
-                error: {
+                response: {
                     message: 'Something did not work :(',
                     error: error.message
                 }
