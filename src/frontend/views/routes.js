@@ -16,6 +16,7 @@ router.get('/',
 router.get('/collection',     [
         IsAuthenticatedMiddleware.LoggedInFrontend
     ],
+
     async (req, res) => {
 
         const songs = await fetch('http://localhost:3000/api/collection/listSongs', {
@@ -27,10 +28,12 @@ router.get('/collection',     [
 
         let listOfSongs = await songs.json();
         res.render('collection/index', {
-            songs: JSON.stringify(listOfSongs.response.message)
+            songs: listOfSongs.response.message
         });
 
-    });
+    }
+
+);
 
 router.get('/users', [
         IsAuthenticatedMiddleware.LoggedInFrontend

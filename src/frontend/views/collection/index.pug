@@ -12,4 +12,6 @@ html
                         h1 Collection
                 div.box-content
                     h1 Songs!
-                    p #{songs}
+                    ul
+                        each val in #{songs}
+                            li= val
