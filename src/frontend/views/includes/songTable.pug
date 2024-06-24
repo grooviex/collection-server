@@ -1,0 +1,15 @@
+div.box-content
+    table.content-table
+        tr
+            th ID
+            th Name
+            th Album
+            th Local Location
+        each song in songs
+            tr
+                th= song.id
+                th= song.title
+                th= song.albumId
+                th= song.localLocation
+                th EDIT
+                th DELETE

@@ -1,0 +1,15 @@
+div.box-content
+    table.content-table
+        tr
+            th ID
+            th Name
+            th Role
+            th E-Mail
+        each user in users
+            tr
+                th= user.id
+                th= user.username
+                th= user.role
+                th= user.email
+                th EDIT
+                th DELETE

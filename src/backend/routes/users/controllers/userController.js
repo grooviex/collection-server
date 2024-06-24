@@ -6,7 +6,9 @@ module.exports = {
             .then((users) => {
                 return res.status(200).json({
                     status: true,
-                    data: users,
+                    response: {
+                        message: users
+                    },
                 });
             })
             .catch((err) => {

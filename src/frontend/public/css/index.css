@@ -93,4 +93,19 @@ body {
         }
     }
 
+
+    .content-table {
+        margin-top: 15px;
+        color: white;
+        margin-left: auto;
+        margin-right: auto;
+        width: 1500px;
+    }
+
+    table th, td {
+        border: 1px solid white;
+        border-collapse: collapse;
+    }
+
+
 }

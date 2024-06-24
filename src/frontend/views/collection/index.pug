@@ -10,8 +10,5 @@ html
                 div.box-header
                     div.header-title
                         h1 Collection
-                div.box-content
-                    h1 Songs!
-                    ul
-                        each val in #{songs}
-                            li= val
+
+                include ../includes/songTable

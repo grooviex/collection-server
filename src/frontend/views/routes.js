@@ -11,7 +11,26 @@ router.get('/',
     [
     IsAuthenticatedMiddleware.LoggedInFrontend
     ],
-    (req, res) => { res.render('homepage/index'); });
+    async (req, res) => {
+
+        const songs = await fetch('http://localhost:3000/api/collection/listSongs', {
+            method: 'GET',
+            params: {res, req}
+        });
+
+        const users = await fetch('http://localhost:3000/api/users/listAll', {
+            method: 'GET',
+            params: {res, req}
+        });
+
+        let listOfSongs = await songs.json();
+        let listOfUsers = await users.json();
+        res.render('homepage/index', {
+            songs: listOfSongs.response.message,
+            users: listOfUsers.response.message
+        });
+
+    });
 
 router.get('/collection',     [
         IsAuthenticatedMiddleware.LoggedInFrontend
@@ -23,8 +42,6 @@ router.get('/collection',     [
             method: 'GET',
             params: {res, req}
         });
-
-        /*  TODO: for loop, make table. Be happy :3 */
 
         let listOfSongs = await songs.json();
         res.render('collection/index', {
@@ -38,7 +55,18 @@ router.get('/collection',     [
 router.get('/users', [
         IsAuthenticatedMiddleware.LoggedInFrontend
     ],
-    (req, res) => { res.render('users/index'); });
+    async (req, res) => {
+    const users = await fetch('http://localhost:3000/api/users/listAll', {
+            method: 'GET',
+            params: {res, req}
+    });
+
+        let listOfUsers = await users.json();
+    res.render('users/index', {
+            users: listOfUsers.response.message
+        });
+
+});
 
 router.get('/logout', [
         IsAuthenticatedMiddleware.LoggedInFrontend
