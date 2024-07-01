@@ -1,3 +1,3 @@
-# Grooviex-Server-Collection
+# Grooviex Collection Server
 
-The New Grooveix Backend written in Nuxt!
+The official Grooviex Collection Server, now with nuxtjs!
