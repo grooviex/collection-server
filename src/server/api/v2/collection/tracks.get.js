@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
     return {
         id: `songs`,
         albums: {
-            test: 'test'
+            test: ';3zz'
         },
     }
 });

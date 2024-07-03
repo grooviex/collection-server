@@ -10,6 +10,9 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "formidable": "^3.5.1",
+    "h3-formidable": "^1.0.0",
+    "music-metadata": "^8.3.0",
     "nuxt": "^3.12.2",
     "vue": "latest"
   }
