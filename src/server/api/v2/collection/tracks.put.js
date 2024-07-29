@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
         href: '', // string; a link to the local location of Song (TODO: Web API?)
         song_id: '', // string; UUID for song
         disc_number: 1, // integer; Number of the Disk
-        duration_ms: 0, // integer; duration of the Song in ms
+        duration_ms: 0, // integer; duration of the Song in msy
         local_location: '', // string; the local location of the Song file
         track_number: 0, // integer; the number of the track
 
