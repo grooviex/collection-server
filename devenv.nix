@@ -11,5 +11,6 @@
     languages.javascript.enable = true;
 
     services.mysql.enable = true;
+    services.mysql.package = true;
 
 }
