@@ -1,5 +1,8 @@
 import { parseBuffer } from 'music-metadata';
 import fs from 'fs';
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
 
 /**
  * puts a song into the collection
@@ -7,6 +10,10 @@ import fs from 'fs';
 export default defineEventHandler(async (event) => {
     let songFile = await readMultipartFormData(event);
     songFile = songFile[0];
+
+    await prisma.track.create({});
+
+    console.log(prisma.track.count());
 
     fs.writeFile('src/public/collection/' +  songFile.filename, songFile.data, (err) => {
         if (err) return console.error(err);
