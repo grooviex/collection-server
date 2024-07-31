@@ -14,5 +14,36 @@ datasource db {
 }
 
 model Track {
-  id        Int     @id @default(autoincrement())
+  id            Int      @id @default(autoincrement())
+  name          String?  @unique
+  href          String?  @unique
+  discNumber    Int      @default(0)
+  duration      Int?     // in ms
+  trackNumber   Int      @default(0)
+  albums        Album[]
+}
+
+model Album {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  type        AlbumType @default(SINGLE)
+  totalTracks Int       @default(0)
+  cover       String // TODO: how should covers be saved?
+  releaseDate DateTime  @default(now())
+  artists     Artist[]
+  tracks      Track[]
+}
+
+model Artist {
+  id      Int @id @default(autoincrement())
+  name    String  @unique
+  albums  Album[]
+  genres  String[]
+}
+
+
+enum AlbumType {
+  ALBUM
+  SINGLE
+  COMPILATION
 }
