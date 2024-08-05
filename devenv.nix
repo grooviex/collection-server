@@ -20,7 +20,7 @@
         postman
     ];
 
-    languages.javascript.enable = true;
+    languages.typescript.enable = true;
 
     services.postgres = {
     enable = true;

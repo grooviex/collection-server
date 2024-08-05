@@ -31,3 +31,7 @@ devenv.local.nix
 
 # pre-commit
 .pre-commit-config.yaml
+
+# songs from collection folder
+src/public/collection/*.mp3
+src/public/collection/*.flac
