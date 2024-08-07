@@ -5,7 +5,7 @@ import { PrismaClient } from '@prisma/client'
 
 
 /**
- * puts a song into the collection
+ * TODO: add multiple File upload support
  * */
 export default defineEventHandler(async (event) => {
     const prisma =  new PrismaClient();

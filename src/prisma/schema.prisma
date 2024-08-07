@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,13 +8,13 @@ datasource db {
 }
 
 model Track {
-  id            Int      @id @default(autoincrement())
-  name          String?  @unique
-  href          String?  @unique
-  discNumber    Int      @default(0)
-  duration      Int?     // in ms
-  trackNumber   Int      @default(0)
-  albums        Album[]
+  id          Int     @id @default(autoincrement())
+  discNumber  Int     @default(0)
+  duration    Int?
+  href        String? @unique
+  name        String? @unique
+  trackNumber Int     @default(0)
+  albums      Album[] @relation("AlbumToTrack")
 }
 
 model Album {
@@ -28,19 +22,18 @@ model Album {
   name        String    @unique
   type        AlbumType @default(SINGLE)
   totalTracks Int       @default(0)
-  cover       String // TODO: how should covers be saved?
+  cover       String
   releaseDate DateTime  @default(now())
-  artists     Artist[]
-  tracks      Track[]
+  artists     Artist[]  @relation("AlbumToArtist")
+  tracks      Track[]   @relation("AlbumToTrack")
 }
 
 model Artist {
-  id      Int @id @default(autoincrement())
-  name    String  @unique
-  albums  Album[]
-  genres  String[]
+  id     Int      @id @default(autoincrement())
+  name   String   @unique
+  genres String[]
+  albums Album[]  @relation("AlbumToArtist")
 }
-
 
 enum AlbumType {
   ALBUM
