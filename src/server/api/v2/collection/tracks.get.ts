@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
                     artists: true,
                 }
             }
-        }, take: event.context.track, skip: event.context.skil});
+        }, take: event.context.take, skip: event.context.skip});
 
 
 });

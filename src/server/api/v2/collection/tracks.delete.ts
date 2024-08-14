@@ -1,5 +1,5 @@
 /**
- * removes a song from the collection
+ * remove a song from the collection
  * */
 export default defineEventHandler(async (event) => {
 
