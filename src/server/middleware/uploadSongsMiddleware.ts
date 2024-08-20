@@ -8,12 +8,13 @@ import fs from "fs";
 *        add Support for multi upload */
 export default defineEventHandler(async (event: H3Event) => {
     if (event.method === "PUT") {
-        if (!['/api/v2/collection/tracks'].includes(getRequestURL(event).pathname)) return;
+        /* TODO: Find a better way for checking a call! */
+        if (!['/api/v2/collection/tracks/'].includes(getRequestURL(event).pathname)) return;
 
         const prisma = new PrismaClient();
         const multiPartData: MultiPartData[] | undefined = await readMultipartFormData(event);
-
         const songFile: MultiPartData | undefined = multiPartData?.find(Boolean);
+        console.log(songFile)
         if (songFile) {
             const songLocation: string = `src/public/collection/${songFile.filename}`;
 

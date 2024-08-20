@@ -36,6 +36,5 @@ export function createArtistDatabaseEntriesContent(metaData: any, fromScratch: b
         })
     }));
 
-
     return artistEntries;
 }
