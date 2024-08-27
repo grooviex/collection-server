@@ -10,8 +10,7 @@ export default defineEventHandler(async (event) => {
         let songId: number;
         try { songId = parseInt(songIdParam); } catch (e) { throw Error('ID needs to be a number!') }
 
-        deleteTrack(songId);
-
+        return await deleteTrack(songId);
 
     } else throw Error('No ID given!');
 

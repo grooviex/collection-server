@@ -5,24 +5,28 @@ import {DefaultArgs, GetResult} from "@prisma/client/runtime/library";
 
 export async function deleteTrack(songId: number) {
     const prisma = new PrismaClient();
-    let track = await prisma.track.delete({
+    let deleteTrack = await prisma.track.delete({
         where: { id: songId },
-        include: { albums: { include: { artists: true }
-        }}});
+    });
 
-    let album = await prisma.album.findFirst({where: {
-            id: track.albums[0].id,
+    let deleteAlbums = await prisma.album.deleteMany({
+        where: {
             tracks: {
-                some: {},
+                none: {},
             },
-        }});
+        },
+    });
 
-    return album;
+    let deleteArtists = await prisma.artist.deleteMany({
+        where: {
+            albums: {
+                none: {}
+            }
+        }
+    });
 
-    if (!album) {
-        album = await prisma.album.delete({where: {id: track.albums[0].id}, include: { artists: true }});
-        return album.artists;
-    }
+    return [deleteTrack, deleteAlbums, deleteArtists]
+
 }
 
 export async function createTrack(file: any): Promise<Prisma.Prisma__TrackClient<GetResult<Prisma.$TrackPayload<DefaultArgs>, {
