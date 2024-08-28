@@ -7,11 +7,7 @@ export default defineEventHandler(async (event) => {
     let songIdParam = getRouterParam(event, 'id');
 
     if (songIdParam) {
-        let songId: number;
-        try { songId = parseInt(songIdParam); } catch (e) { throw Error('ID needs to be a number!') }
-
-        return await deleteTrack(songId);
-
+        return await deleteTrack(stringToNumber(songIdParam));
     } else throw Error('No ID given!');
 
 });

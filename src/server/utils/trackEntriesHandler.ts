@@ -1,13 +1,24 @@
 import {Prisma, PrismaClient} from "@prisma/client";
 import fs from "fs";
 import { parseBuffer } from "music-metadata";
-import {DefaultArgs, GetResult} from "@prisma/client/runtime/library";
+import type { DefaultArgs, GetResult } from "@prisma/client/runtime/library";
 
-export async function deleteTrack(songId: number) {
+export async function deleteTrack(songId: number|number[]): Promise<Array<any>> {
     const prisma = new PrismaClient();
-    let deleteTrack = await prisma.track.delete({
-        where: { id: songId },
-    });
+    let deleteTrack;
+
+    if (typeof songId === "number") {
+        deleteTrack = await prisma.track.delete({
+            where: { id: songId },
+        });
+    } else {
+        for (const item of songId) {
+            deleteTrack = await prisma.track.delete({
+                where: { id: item },
+            });
+        }
+    }
+
 
     let deleteAlbums = await prisma.album.deleteMany({
         where: {
