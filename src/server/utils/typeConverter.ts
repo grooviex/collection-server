@@ -1,4 +1,5 @@
-export function stringToNumber(string: string|string[]|undefined, throwError:boolean = false): number|number[]|undefined {
+
+export function stringToNumber(string: any): number|number[] {
     if (string) {
 
         if(typeof string === "string") {
@@ -7,20 +8,19 @@ export function stringToNumber(string: string|string[]|undefined, throwError:boo
             } catch (e) {
                 throw Error('ID needs to be a number!')
             }
-        }
+        } else {
+            let result: number[] = [];
+            string.forEach((str: any) => {
+                try {
+                    result.push(parseInt(str));
+                } catch (e) {
+                    throw Error('A string you have given could not be converted!');
+                }
+            });
 
-        let result: number[] = [];
-        for (const st in string) {
-            try {
-                result.push(parseInt(st));
-            } catch (e) {
-                if (throwError) throw Error('A string you have given could not be converted!');
-            }
+            return result;
         }
-        return result;
-
     } else {
-        if (throwError) throw Error('No string was given!');
-        else return undefined
+        throw Error('No string was given!');
     }
 }

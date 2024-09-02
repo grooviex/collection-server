@@ -14,7 +14,6 @@ export default defineEventHandler(async (event: H3Event) => {
         const prisma = new PrismaClient();
         const multiPartData: MultiPartData[] | undefined = await readMultipartFormData(event);
         const songFile: MultiPartData | undefined = multiPartData?.find(Boolean);
-        console.log(songFile)
         if (songFile) {
             const songLocation: string = `src/public/collection/${songFile.filename}`;
 
