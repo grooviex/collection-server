@@ -3,7 +3,7 @@ import fs from "fs";
 import { parseBuffer } from "music-metadata";
 import type { DefaultArgs, GetResult } from "@prisma/client/runtime/library";
 
-export async function deleteTrack(songId: number | number[]): Promise<Array<any>> {
+export async function deleteTrack(songId: number | number[]): Promise<Object> {
     const prisma = new PrismaClient();
     let deleteTrack: any = [];
 
@@ -42,7 +42,7 @@ export async function deleteTrack(songId: number | number[]): Promise<Array<any>
         }
     });
 
-    return [deleteTrack, deleteAlbums, deleteArtists]
+    return {"tracks": deleteTrack, "albums": deleteAlbums, "artists": deleteArtists}
 
 }
 

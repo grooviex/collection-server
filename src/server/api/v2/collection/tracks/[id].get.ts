@@ -4,20 +4,20 @@ import { PrismaClient } from "@prisma/client";
  * gets a specific song from the collection
  * */
 export default defineEventHandler(async (event) => {
-    let songIdParam = getRouterParam(event, 'id');
+    let IDParam = getRouterParam(event, 'id');
     const prisma = new PrismaClient();
 
-    if (songIdParam) {
-        let songId: number;
-        try { songId = parseInt(songIdParam); } catch (e) { throw Error('ID needs to be a number!') }
+    if (IDParam) {
+        let ID: number;
+        try { ID = parseInt(IDParam); } catch (e) { throw Error('ID needs to be a number!') }
 
         return prisma.track.findFirst({
             include: {
                 albums: {
                     include: {
                         artists: true,
-                    }
-                }}, where: {id: songId}});
+                    },
+                }}, where: {id: ID}});
 
     } else throw Error('No ID given!');
 });
