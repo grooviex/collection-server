@@ -9,5 +9,6 @@
 </template>
 
 <style>
-  @import url("~/assets/css/default.css");
+@import url("~/assets/css/variables/colors.css");
+@import url("~/assets/css/default.css");
 </style>
