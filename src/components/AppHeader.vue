@@ -15,7 +15,7 @@
     </div>
 
     <div class="sidebar">
-      <a href="/dashboard" class="sidebar--item">
+      <a href="/" class="sidebar--item">
         <i/>
         <p>D</p>
       </a>
@@ -39,9 +39,9 @@ header {
     justify-content: flex-start;
     align-items: center;
 
-    height: 60px;
+    height: 40px;
 
-    background-color: rgb(var(--color-bar));
+    background-color: rgb(var(--color-surface));
 
     img#logo {
       width: 32px;
@@ -62,7 +62,7 @@ header {
       width: 100%;
       height: 100%;
 
-      border-bottom: 2px solid rgba(159, 105, 146, .3);
+      border-bottom: 2px solid rgba(var(--color-rose));
     }
 
   }
@@ -84,8 +84,8 @@ header {
 
 
 
-    background-color: rgb(var(--color-bar));
-    border-right: 2px solid rgba(159, 105, 146, .3);
+    background-color: rgb(var(--color-surface));
+    border-right: 2px solid rgba(var(--color-rose));
 
     .sidebar--item {
       text-decoration: none;
