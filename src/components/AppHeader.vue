@@ -38,7 +38,7 @@ header {
     gap: 10px;
 
     position: fixed;
-    overflow: auto;
+    overflow: hidden;
 
     width: 80px;
     height: 100%;
