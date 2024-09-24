@@ -18,7 +18,7 @@
   box-sizing: border-box;
 }
 
-body {
+body  {
   background-color: rgb(var(--color-base));
 }
 
