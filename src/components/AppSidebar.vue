@@ -1,4 +1,13 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+let el = ref(null);
+
+let onClickSidebarCollapse = ($event) => {
+    let el = $event.target.parentNode;
+    let sidebar = el.closest('.sidebar');
+
+    sidebar.style.width = "250px";
+}
 
 </script>
 
@@ -25,7 +34,7 @@
       </div>
 
       <div class="sidebar--nav">
-        <a href="#" class="sidebar--nav-item">
+        <a class="sidebar--nav-item" @click="onClickSidebarCollapse($event)">
           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg>
         </a>
       </div>
