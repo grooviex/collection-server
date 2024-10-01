@@ -3,10 +3,27 @@ import { ref } from 'vue'
 let el = ref(null);
 
 let onClickSidebarCollapse = ($event) => {
+    let iconRight = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg>';
+    let iconLeft = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z"/></svg>'
+
     let el = $event.target.parentNode;
+    let icon = $event.target;
     let sidebar = el.closest('.sidebar');
 
-    sidebar.style.width = "250px";
+
+    // TODO: change button icons
+    if (!sidebar.classList.contains('extended')) {
+        el.innerHTML = iconLeft;
+
+        sidebar.classList.add('extended');
+        sidebar.style.width = "230px";
+    } else {
+        el.innerHTML = iconRight;
+
+        sidebar.classList.remove('extended');
+        sidebar.style.width = "80px";
+    }
+
 }
 
 </script>
@@ -33,7 +50,7 @@ let onClickSidebarCollapse = ($event) => {
         </a>
       </div>
 
-      <div class="sidebar--nav">
+      <div class="sidebar--nav bottom">
         <a class="sidebar--nav-item" @click="onClickSidebarCollapse($event)">
           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg>
         </a>
@@ -45,15 +62,17 @@ let onClickSidebarCollapse = ($event) => {
 <style>
 header {
   .sidebar {
+    transition: width 0.7s;
     position: fixed;
 
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: space-between;
 
+    gap: 15px;
     height: 100%;
     width: 80px;
+
 
     background-color: rgb(var(--color-surface));
     border-right: 2px solid rgba(var(--color-rose));
@@ -75,6 +94,11 @@ header {
       flex-direction: column;
       gap: 10px;
 
+      &.bottom {
+          justify-content: flex-end;
+          margin-top: auto;
+      }
+
       .sidebar--nav-item {
         text-decoration: none;
 
@@ -82,8 +106,12 @@ header {
           background-color: rgb(var(--color-highlight-med));
         }
       }
-
     }
+
+    &.extended {
+      align-items: normal;
+    }
+
 
   }
 }
