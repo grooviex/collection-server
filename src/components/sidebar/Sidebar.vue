@@ -129,12 +129,12 @@ header {
           .sidebar-popup {
             visibility: visible;
             opacity: 1;
+            margin-left: 80px;
           }
         }
 
         &.active svg {
           padding: 2px 2px 0;
-
         }
 
         &:hover svg {

@@ -17,7 +17,7 @@
 
   height: 15vh;
   width: 230px;
-  margin-left: 80px;
+  margin-left: 55px;
 
   border: 2px solid rgb(var(--color-rose));
   border-radius: 6px;
@@ -30,6 +30,6 @@
 
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0.2s, opacity 0.2s linear;
+  transition: visibility 0.2s, opacity 0.2s linear, margin-left 0.5s;
 }
 </style>
