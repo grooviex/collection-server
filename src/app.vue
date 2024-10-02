@@ -12,9 +12,11 @@
 @import url("~/assets/css/variables/colors.css");
 
 * {
+  position: relative;
   padding: 0;
   margin: 0;
-  color: white;
+
+  color: rgb(var(--color-text));
   box-sizing: border-box;
 }
 

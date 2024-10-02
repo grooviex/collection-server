@@ -119,11 +119,17 @@ header {
           transition: padding 0.5s;
         }
 
+
         &.active,
         &:hover {
           background-color: rgb(var(--color-highlight-med));
           border-radius: 10px;
           transition: padding 0.5s;
+
+          .sidebar-popup {
+            visibility: visible;
+            opacity: 1;
+          }
         }
 
         &.active svg {
