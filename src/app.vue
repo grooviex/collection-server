@@ -1,9 +1,9 @@
 <template>
   <div>
     <NuxtLayout>
-      <AppSidebar/>
+      <Sidebar/>
       <NuxtPage/>
-      <AppFooter/>
+      <Footer/>
     </NuxtLayout>
   </div>
 </template>
