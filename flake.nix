@@ -33,20 +33,31 @@
               PRISMA_FMT_BINARY="${pkgs.prisma-engines}/bin/prisma-fmt";
             };
 
-            packages = [
-              pkgs.nodejs_22
-
-              pkgs.nodePackages_latest.prisma
-              pkgs.prisma-engines
-            ];
+            packages = with pkgs; [
+              nodePackages_latest.prisma
+              prisma-engines
+              
+              openssl # needed by prisma
+           ];
 
             languages = {
               typescript.enable = true;
               javascript = {
                 enable = true;
                 package = pkgs.nodejs_22;
-                npm.enable = true;
+                
+                npm = {
+                  enable = true;
+                  install.enable = true;
+                };
 
+              };
+            };
+
+            tasks = {
+              "prisma:generate-schema" = {
+                exec = "${pkgs.nodePackages_latest.prisma}/bin/prisma generate --schema src/prisma/schema.prisma";
+                before = [ "devenv:enterShell" "devenv:enterTest" ];
               };
             };
 
@@ -67,8 +78,6 @@
 
             processes = {
               nuxt.exec = ''
-              ${pkgs.nodejs_22}/bin/npm install &&\
-              ${pkgs.nodePackages_latest.prisma}/bin/prisma generate --schema src/prisma/schema.prisma --generator ${pkgs.prisma-engines}/bin/schema-engine &&\
               ${pkgs.nodejs_22}/bin/npm run dev'';
             };
 
