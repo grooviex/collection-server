@@ -16,6 +16,11 @@ import Window from "~/components/common/Window.vue";
       <a href="/users" class="sidebar--nav-item">
         <span class="material-symbols-rounded">sync_alt</span><span style="padding: 5px">Connections</span>
       </a>
+
+
+      <a href="/users" class="sidebar--nav-item">
+        <span class="material-symbols-rounded">monitoring</span><span style="padding: 5px">Statistics</span>
+      </a>
     </div>
 
     <div class="sidebar--nav">

@@ -10,7 +10,6 @@
 .grooviex--window {
   display: flex;
 
-
   margin: 10px;
 
   border: 1px solid rgba(var(--color-rose), 0.7);

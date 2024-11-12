@@ -5,7 +5,6 @@
         <Sidebar/>
       </header>
       <div class="content">
-        <TitleBar/>
         <NuxtPage/>
       </div>
       <footer>
