@@ -1,17 +1,24 @@
 <template>
   <div>
     <NuxtLayout>
-      <Sidebar/>
-      <NuxtPage/>
-      <Footer/>
+      <header>
+        <Sidebar/>
+      </header>
+      <div class="content">
+        <TitleBar/>
+        <NuxtPage/>
+      </div>
+      <footer>
+        <Footer/>
+      </footer>
     </NuxtLayout>
   </div>
 </template>
 
 <style>
+/* Imports of Fonts; Variables; etc. */
 @import url("~/assets/css/variables/colors.css");
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
-
 @font-face {
   font-family: "Material Symbols Rounded";
   font-style: normal;
@@ -20,6 +27,14 @@
   format("woff2");
 }
 
+/* Add icon classes */
+.material-symbols-rounded {
+  font-family: 'Material Symbols Rounded', monospace;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+}
+
+/* Default settings for every element */
 * {
   font-family: "JetBrains Mono", monospace;
   font-optical-sizing: auto;
@@ -33,8 +48,15 @@
   box-sizing: border-box;
 }
 
+/* Change background color */
 body  {
   background-color: rgb(var(--color-base));
 }
 
+
+/* Content/Sidebar changes */
+.content {
+  display: flex;
+  margin: 0 0 0 220px;
+}
 </style>
