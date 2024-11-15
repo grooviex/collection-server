@@ -11,7 +11,7 @@ export default defineComponent({
   <div class="previews">
     <div class="previews--top">
       <Window class="statistics previews--item">
-        <a href="/pages/statistics">Statistics</a>
+        <NuxtLink to="/statistics">Statistics</NuxtLink>
         <div class="previews--item-content">
           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
         </div>
@@ -20,14 +20,14 @@ export default defineComponent({
 
     <div class="previews--bottom">
       <Window class="songs previews--item">
-        <a href="/pages/songs">Songs</a>
+        <NuxtLink to="/songs">Songs</NuxtLink>
         <div class="previews--item-content">
           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
         </div>
       </Window>
 
       <Window class="connections previews--item">
-        <a href="/pages/connections">Connections</a>
+        <NuxtLink to="/connections">Connections</NuxtLink>
         <div class="previews--item-content">
           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
         </div>
@@ -68,6 +68,10 @@ export default defineComponent({
 
     .songs {
       width: 150vw;
+    }
+
+    .previews--bottom {
+      min-height: 50vh;
     }
   }
 }
