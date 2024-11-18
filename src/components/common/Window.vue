@@ -8,6 +8,8 @@
 <style>
 
 .grooviex--window {
+  background-color: rgba(var(--color-surface), 0.5);
+
   display: flex;
 
   margin: 10px;

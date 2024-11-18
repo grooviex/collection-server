@@ -47,8 +47,6 @@
     display: flex;
 
     .previews--item {
-      background-color: rgba(var(--color-surface), 0.5);
-
       min-height: 30vh;
       width: calc(100% - 20px);
 
