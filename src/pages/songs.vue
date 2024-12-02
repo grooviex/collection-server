@@ -1,5 +1,5 @@
-<script lang="ts">
-const items = ref([{ message: "songs one"}, {message: "songs two"}]);
+<script setup lang="ts">
+const songs = await useFetch('/api/v2/collection/tracks');
 </script>
 
 <template>
@@ -11,9 +11,11 @@ const items = ref([{ message: "songs one"}, {message: "songs two"}]);
       </div>
 
       <div class="songs-overview--content">
-        <li v-for="item in items">
-         {{item}}
+
+        <li v-for="song in songs">
+          {{ song }}
         </li>
+
       </div>
     </commonWindow>
   </commonPage>
@@ -22,8 +24,15 @@ const items = ref([{ message: "songs one"}, {message: "songs two"}]);
 <style>
 .songs-overview {
   display: flex;
+  flex-direction: column;
+
   height: 50vh;
   width: 100%;
+
   padding: 5px;
+}
+
+.songs-overview--content {
+  padding: 10px 0 0 0;
 }
 </style>

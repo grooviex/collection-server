@@ -64,13 +64,17 @@
             services.postgres = {
               enable = true;
               package = pkgs.postgresql_16;
-              initialDatabases = [{ name = "collectionServer"; }];
+              initialDatabases = [
+                {
+                  name = "collectionServer";
+                  user = "postgresql";
+                  pass = "postgresql";
+                }
+              ];
               listen_addresses = "*";
 
               initialScript = ''
-                CREATE ROLE postgres SUPERUSER;
-                ALTER ROLE postgres WITH PASSWORD 'postgres';
-                ALTER ROLE postgres WITH LOGIN;
+                ALTER USER postgresql CREATEDB;
               '';
             };
 

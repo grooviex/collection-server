@@ -1,19 +1,17 @@
-/*
-  Warnings:
-
-  - A unique constraint covering the columns `[name]` on the table `Track` will be added. If there are existing duplicate values, this will fail.
-  - A unique constraint covering the columns `[href]` on the table `Track` will be added. If there are existing duplicate values, this will fail.
-
-*/
 -- CreateEnum
 CREATE TYPE "AlbumType" AS ENUM ('ALBUM', 'SINGLE', 'COMPILATION');
 
--- AlterTable
-ALTER TABLE "Track" ADD COLUMN     "discNumber" INTEGER NOT NULL DEFAULT 0,
-ADD COLUMN     "duration" INTEGER,
-ADD COLUMN     "href" TEXT,
-ADD COLUMN     "name" TEXT,
-ADD COLUMN     "trackNumber" INTEGER NOT NULL DEFAULT 0;
+-- CreateTable
+CREATE TABLE "Track" (
+    "id" SERIAL NOT NULL,
+    "discNumber" INTEGER NOT NULL DEFAULT 0,
+    "duration" INTEGER,
+    "href" TEXT,
+    "name" TEXT,
+    "trackNumber" INTEGER NOT NULL DEFAULT 0,
+
+    CONSTRAINT "Track_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "Album" (
@@ -49,7 +47,16 @@ CREATE TABLE "_AlbumToTrack" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Track_href_key" ON "Track"("href");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Track_name_key" ON "Track"("name");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Album_name_key" ON "Album"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Artist_name_key" ON "Artist"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_AlbumToArtist_AB_unique" ON "_AlbumToArtist"("A", "B");
@@ -62,12 +69,6 @@ CREATE UNIQUE INDEX "_AlbumToTrack_AB_unique" ON "_AlbumToTrack"("A", "B");
 
 -- CreateIndex
 CREATE INDEX "_AlbumToTrack_B_index" ON "_AlbumToTrack"("B");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Track_name_key" ON "Track"("name");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Track_href_key" ON "Track"("href");
 
 -- AddForeignKey
 ALTER TABLE "_AlbumToArtist" ADD CONSTRAINT "_AlbumToArtist_A_fkey" FOREIGN KEY ("A") REFERENCES "Album"("id") ON DELETE CASCADE ON UPDATE CASCADE;
